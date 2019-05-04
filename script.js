@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         youtube自动切换中文字幕
 // @namespace    https://github.com/crud-boy/Youtube-Automatic-Translation
-// @version      0.1.1
+// @version      0.1.2
 // @description  油管自动跳广告,自动打开翻译字幕,如果打开失败，请手动点击一下字幕按钮
 // @author       wlpha
 // @match        *://www.youtube.com/watch?v=*
