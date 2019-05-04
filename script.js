@@ -5,6 +5,8 @@
 // @description  油管自动跳广告,自动打开翻译字幕,如果打开失败，请手动点击一下字幕按钮
 // @author       wlpha
 // @match        *://www.youtube.com/watch?v=*
+// @match        *://www.youtube.com
+// @match        *://www.youtube.com/*
 // @grant        none
 // @run-at       document-end
 
@@ -83,7 +85,7 @@
         // 删除广告
         // Delete advertisements
         var ads_string = ['.video-ads', '#player-ads'];
-        for(x in ads_string) {
+        for(var x in ads_string) {
             var ads = document.querySelectorAll(ads_string[x]);
             for(var i=0; i<ads.length; i++) {
                 try{
@@ -105,10 +107,12 @@
                 player.currentTime  = 1e10;
                 console.log('youtube自动清除片头片尾广告');
             }
+        } else {
+            // 检测是否打开过设置
+            open_settings();
         }
 
-        // 检测是否打开过设置
-        open_settings();
+
     }, 1000);
 
 
