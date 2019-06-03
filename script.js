@@ -46,6 +46,16 @@
         }
     }
 
+    var lastLocation = null;
+    var testTime = 0;
+
+    function NavCheck() {
+        if (window.location.href != lastLocation) {
+            lastLocation = window.location.href;
+            is_open_subtitles = false;
+            testTime = 0;
+        }
+    }
 
     var checkInterval = setInterval(function () {
         var ad_show = document.querySelector('.ad-showing');
@@ -55,6 +65,7 @@
             // add_trans_control_btn();
             if (get_trans_coltrol_state()) {
                 enable_subtitles();
+                NavCheck();//if change wait interval time for load
             }
 
         }
@@ -122,26 +133,21 @@
 
 
 
-    var lastLocation = null;
-    var testTime = 0;
 
-    function NavCheck() {
-        if (window.location.href != lastLocation) {
-            lastLocation = window.location.href;
-            is_open_subtitles = false;
-            testTime = 0;
-        }
-    }
 
     function enable_subtitles() {
         // 如果人为打开设置，就不操作
         if (is_open_settings()) {
             return;
         }
+        if (window.location.href.indexOf('watch') == -1) {
+            // not watch page
+            console.log('skip at home!')
+            return;
+        }
         if (testTime > 5) { // if fail, return
             console.log('subtitle load fail!')
             is_open_subtitles = true;
-            NavCheck();
             return;
         }
         if (has_subtitle()) {
@@ -151,12 +157,11 @@
                 // 打开
                 open_settings();
                 // 切换字幕
+                try{
                 open_subtitle();
+                } catch (ex){console.log(ex)}
                 // 关闭设置
                 close_settings();
-            } else {
-                // clearInterval(checkInterval);
-                NavCheck();
             }
         }
 
