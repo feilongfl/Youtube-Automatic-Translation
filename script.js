@@ -73,6 +73,11 @@
                     item.click();
                     var auto_trans_btns = document.querySelectorAll('.ytp-panel-menu .ytp-menuitem[role="menuitemradio"]');
                     var langBtn = null;
+                    if (auto_trans_btns.length == 2) {
+                        console.log("no subtitle found!");
+                        is_open_subtitles = true;
+                        break;
+                    }
                     for (var i = 0; i < auto_trans_btns.length; i++) {
                         console.log("found subtitle" + auto_trans_btns[i].innerText)
                         // 如果内置字幕，没有简体中文，就次选中文(没有简体字的情况下，一般是繁体字)
