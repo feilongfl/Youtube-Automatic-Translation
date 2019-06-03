@@ -121,14 +121,21 @@
     }
 
     var lastLocation = null;
+    var testTime = 0;
     function enable_subtitles() {
         // 如果人为打开设置，就不操作
         if (is_open_settings()) {
             return;
         }
+        if (testTime > 5) { // if fail, return
+            console.log('subtitle load fail!')
+            is_open_subtitles = true;
+            return;
+        }
         if (has_subtitle()) {
             // 打开字幕
             if (!is_open_subtitles) {
+                testTime = testTime + 1;
                 // 打开
                 open_settings();
                 // 切换字幕
@@ -140,6 +147,7 @@
                 if (window.location.href != lastLocation) {
                     lastLocation = window.location.href;
                     is_open_subtitles = false;
+                    testTime = 0;
                 }
             }
         }
