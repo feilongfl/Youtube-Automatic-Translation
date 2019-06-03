@@ -120,8 +120,19 @@
         }
     }
 
+
+
     var lastLocation = null;
     var testTime = 0;
+
+    function NavCheck() {
+        if (window.location.href != lastLocation) {
+            lastLocation = window.location.href;
+            is_open_subtitles = false;
+            testTime = 0;
+        }
+    }
+
     function enable_subtitles() {
         // 如果人为打开设置，就不操作
         if (is_open_settings()) {
@@ -130,6 +141,7 @@
         if (testTime > 5) { // if fail, return
             console.log('subtitle load fail!')
             is_open_subtitles = true;
+            NavCheck();
             return;
         }
         if (has_subtitle()) {
@@ -144,11 +156,7 @@
                 close_settings();
             } else {
                 // clearInterval(checkInterval);
-                if (window.location.href != lastLocation) {
-                    lastLocation = window.location.href;
-                    is_open_subtitles = false;
-                    testTime = 0;
-                }
+                NavCheck();
             }
         }
 
