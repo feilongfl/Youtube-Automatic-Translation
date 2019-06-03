@@ -73,11 +73,7 @@
                     item.click();
                     var auto_trans_btns = document.querySelectorAll('.ytp-panel-menu .ytp-menuitem[role="menuitemradio"]');
                     var langBtn = null;
-                    if (auto_trans_btns.length == 2) {
-                        console.log("no subtitle found!");
-                        is_open_subtitles = true;
-                        break;
-                    }
+
                     for (var i = 0; i < auto_trans_btns.length; i++) {
                         console.log("found subtitle" + auto_trans_btns[i].innerText)
                         // 如果内置字幕，没有简体中文，就次选中文(没有简体字的情况下，一般是繁体字)
@@ -94,8 +90,8 @@
                             }
                         }
 
+                        if (langBtn != null) { langBtn.click(); }// select first
                         if (auto_trans_btns[i] && auto_trans_btns[i].innerText.indexOf('自动翻译') > -1) {// last one
-                            if (langBtn != null) { langBtn.click(); }
                             if (langBtn && langBtn.innerText.indexOf('中文') > -1) {
                                 console.log("set to " + langBtn.innerText);
                                 is_open_subtitles = true;
@@ -103,6 +99,7 @@
                             }
                             // 如果没有内置字幕，就打开翻译字幕
                             // 点击 "自动翻译"
+                            console.log('自动翻译')
                             auto_trans_btns[i].click();
                             var btns = document.querySelectorAll('.ytp-panel-menu .ytp-menuitem[role="menuitemradio"]');
                             for (var k = 0; k < btns.length; k++) {
